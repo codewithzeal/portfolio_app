@@ -19,19 +19,22 @@ class ConfirmPasswordComponenet extends Component {
         this.props.setCnfPassword(e.target.value)
     }
     
+    
+
     render()
     {
         const inputType=this.state.show?'text':'password'
         const iconType=this.state.show?'fa fa-eye':'fa fa-eye-slash'
         return(
             <>
-                <div className='input-group mt-3'>
+                <div className='input-group mt-4'>
                     <input 
                         className='form-control shadow-none'
                         type={inputType}
                         value={this.props.cnfPassword}
                         onChange={this.handleInput}
                         style={{borderRightStyle:'hidden'}}
+                        placeholder='confirm-password'
                     />
                     {
                         this.props.cnfPassword?
@@ -66,7 +69,7 @@ class ConfirmPasswordComponenet extends Component {
                 <div className='text-danger' style={{float:'left'}}>
                     {   
                         this.props.warn?
-                        <div className='text-danger'>
+                        <div className='text-danger' style={{float:'left',fontSize:'2.5vh'}}>
                             <WarningComponent message={this.state.message}/>
                         </div>:
                         ''

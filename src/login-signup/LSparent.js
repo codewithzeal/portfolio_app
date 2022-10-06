@@ -16,7 +16,8 @@ class LSParent extends Component {
             username:'',
             password:'',
             confirmPassword:'',
-            shouldSubmit:''
+            shouldSubmit1:true,
+            shouldSubmit2:true,
         }
     }
 
@@ -33,41 +34,83 @@ class LSParent extends Component {
         this.setState(()=>({confirmPassword:cnfpassword}))
     }
 
-    setShouldSubmit=(bool)=>{
-        this.setState(()=>({shouldSubmit:bool}))
+    setSubmit1=(bool)=>{
+        this.setState(()=>({shouldSubmit1:bool}))
     }
 
-    setRole=(role)=>{
-        this.setState(()=>({role:role}))
+    setSubmit2=(bool)=>{
+        this.setState(()=>({shouldSubmit2:bool}))
     }
+
+    setRole=()=>{
+        this.setState((prevState)=>({
+            role:prevState.role==='signup'?'login':'signup'
+        }))
+    }
+
+
 
    render()
    {
     
+    console.log(this.state.role==='signup'&&this.state.password!==this.state.confirmPassword,this.state.shouldSubmit1,this.state.shouldSubmit2)
     const roleInside=this.state.role
     const usernameInside=this.state.username
     //const DebouncedCnfPassword=DebounceInput(CnfpasswordComponent)    
     return(
         
-        <form>            
-            <DebouncedInput  
-            role={roleInside} 
-            username={usernameInside} 
-            setUser={this.setUserName}
-            />
-            
-            <DebouncedPassword  
-            key="1" password={this.state.password} setPassword={this.setPassword}
-            />
+        
+            <form className='mt-5'>            
+                <DebouncedInput  
+                    role={roleInside} 
+                    username={usernameInside} 
+                    setUser={this.setUserName}
+                    setSubmit={this.setSubmit1}
+                />
+                
+                <DebouncedPassword  
+                    key="1" password={this.state.password} setPassword={this.setPassword}
+                    setSubmit={this.setSubmit2}  
+                />
 
-            <DebouncedCnfPassword key="2" 
-                cnfPassword={this.state.confirmPassword} 
-                setCnfPassword={this.setConfirmPassword} 
-                password={this.state.password}
-                warn={this.state.password!==this.state.confirmPassword&&this.state.confirmPassword!==''}
-            />
-        </form>
+                
+                {
+                    this.state.role==='signup'?
+                    <DebouncedCnfPassword key="2" 
+                    cnfPassword={this.state.confirmPassword} 
+                    setCnfPassword={this.setConfirmPassword} 
+                    password={this.state.password}
+                    warn={this.state.password!==this.state.confirmPassword&&this.state.confirmPassword!==''}
+                    setSubmit={this.setSubmit}
+                    />:''
+                }
+
+                <button className='form-control shadow-none btn btn-primary mt-3' disabled={this.state.shouldSubmit1||this.state.shouldSubmit2||(this.state.role==='signup'&&this.state.password!==this.state.confirmPassword)}>
+                    {this.state.role}
+                </button>
+
+                <p className="mt-4"
+                   style={
+                    {
+                        float:'right',color:'white',
+                        textDecoration:'underline',
+                        cursor:'poniter'
+                    }}
+                    onClick={this.setRole} 
+                >
+                    
+                    {
+                        this.state.role==='signup'?
+                        'Already a user?login':
+                        'New user?Register'
+                    }
+                </p>
+
+            </form>
+
             
+
+        
     )
    }
 }

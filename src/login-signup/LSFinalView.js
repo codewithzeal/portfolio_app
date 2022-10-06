@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LSParent from './LSparent';
+import logo from './final.svg'
 class LSFinalView extends Component {
     
     render()
@@ -8,17 +9,34 @@ class LSFinalView extends Component {
 
             <>
 
-                <div className='container-fluid mt-3' >
+                <div className='container-fluid'>
 
-                    <div className='row'>
+                    <div className='row p-3'>
 
-                        <div className='col-sm-4'style={{backgroundColor:'white',justifyContent:'center'}}>
+                        <div className='col-sm-4'style={
+                            {
+                                justifyContent:'center',
+                                border:'1px solid blue',
+                                borderRadius:'8px 8px 8px 8px',
+                                height:'max-content',
+                                backgroundColor:'rgb(87, 207, 123)',
+                                position:'relative',
+                                top:'10vh'
+                                
+                            }}
+                            >
                             <center>
                                 <LSParent/>
                             </center>
                         </div>
-                        <div className='col-sm-7 ml-3 mt-2'style={{backgroundColor:'yellow'}}>
-                            .
+                        <div className='col-sm-8'style={
+                            {
+                                backgroundColor:'white',
+                                height:'80vh',
+                                 
+                            }}
+                        >
+                            
                         </div>
 
                     </div>

@@ -20,9 +20,14 @@ class PasswordComponent extends Component
     }
 
     validate=()=>{
+        
         const password=this.props.password
         const regex=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}/
-        regex.test(password)?this.setState({warn:false}):this.setState({warn:true})
+        regex.test(password)?this.setState({warn:false},()=>{
+            this.state.warn?this.props.setSubmit(true):this.props.setSubmit(false)
+        }):this.setState({warn:true},()=>{
+            this.state.warn?this.props.setSubmit(true):this.props.setSubmit(false)
+        })
     }
 
     handleInput=(e)=>{
@@ -35,6 +40,7 @@ class PasswordComponent extends Component
         this.setState((prevState)=>({show:!prevState.show}))
     }
 
+
     render()
     {
         const inputType=this.state.show?'text':'password'
@@ -42,7 +48,7 @@ class PasswordComponent extends Component
         return(<>
 
 
-        <div className='input-group mt-3'>
+        <div className='input-group mt-4'>
             <input 
                 type={inputType}
                 className='form-control shadow-none'
@@ -50,7 +56,8 @@ class PasswordComponent extends Component
                 value={this.props.password} 
                 onKeyUp={()=>this.BetterValidate()}
                 onChange={this.handleInput}
-                style={{borderRightStyle:'hidden'}}
+                style={{borderRightStyle:'hidden',}}
+                
             />
             {
                 this.props.password!==''?
@@ -91,14 +98,14 @@ class PasswordComponent extends Component
             {
                 this.state.warn&&this.props.password!==''?
                 <>
-                    <p style={{float:'left'}}>
+                    <p style={{float:'left',fontSize:'2.5vh'}}>
                         <WarningComponent message={this.state.messages[0]}/>
                     </p>
-                    <p style={{float:'left'}}>
+                    <p style={{float:'left',fontSize:'2.5vh'}}>
                         <WarningComponent message={this.state.messages[1]}/>
                     </p>
-                    <p style={{float:'left'}}>
-                        <WarningComponent message={this.state.messages[1]}/>
+                    <p style={{float:'left',fontSize:'2.5vh'}}>
+                        <WarningComponent message={this.state.messages[2]}/>
                     </p>
                 </>:
                 ''

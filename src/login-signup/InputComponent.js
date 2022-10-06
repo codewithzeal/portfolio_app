@@ -13,13 +13,17 @@ class InputComponent extends Component {
 
         this.fetch=()=>{
             console.log("calling fecth simulation....")
-            this.props.username!=='naman'&&this.props.username!==''?
-            this.setState({
-                warn:true,
-                type:'invt'
-            }):
-            this.setState({
-                warn:false,
+            const regex=/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/
+            const bool=regex.test(this.props.username)
+            !bool?
+            this.props.username==='naman'?
+            this.setState({warn:false},()=>{this.state.warn?this.props.setSubmit(true):this.props.setSubmit(false)}):
+            this.setState({warn:true,type:'invu'},()=>{
+                this.state.warn?this.props.setSubmit(true):this.props.setSubmit(false)
+            })
+
+            :this.setState(({warn:true,type:"invt"}),()=>{
+                this.state.warn?this.props.setSubmit(true):this.props.setSubmit(false)
             })
 
         }
@@ -37,16 +41,16 @@ class InputComponent extends Component {
 
     }
 
+    
+
     render()
     {
         const {role,username}=this.props
         
         return(
             <>
-                <div className='input-group'>
-                    <span className="input-group-text" style={{width:'50px',justifyItems:'center',justifyContent:'center'}}>
-                        <i className="fa fa-user" aria-hidden="true" ></i>
-                    </span>
+                <div className='input-group mt-3'>
+                    
                     <input
                         type="text"
                         className='form-control shadow-none'
@@ -58,12 +62,12 @@ class InputComponent extends Component {
                             this.validate()
                         }}
                         onChange={this.inputHandle}
-                        
+                        style={{borderRightStyle:'hidden'}}
                     />
                     
                     {
                         this.props.username?
-                        <span className="input-group-text" style={{width:'50px',justifyItems:'center',justifyContent:'center',backgroundColor:'white',borderStyle:'hidden'}}>
+                        <span className="input-group-text" style={{width:'30px',justifyItems:'center',justifyContent:'center',backgroundColor:'white'}}>
                         
                             
                             
@@ -78,12 +82,15 @@ class InputComponent extends Component {
                         </span>:
                         ''
                     } 
+                    <span className="input-group-text" style={{width:'50px',justifyItems:'center',justifyContent:'center'}}>
+                        <i className="fa fa-user" aria-hidden="true" ></i>
+                    </span>
                 
             </div>
                 <div className='text-danger' style={{float:'left'}}>
                 {
                     this.state.warn?
-                    <div className='text-danger'>
+                    <div className='text-danger' style={{float:'left',fontSize:'2.5vh'}}>
                         {
                             this.state.type==='invt'?
                             <WarningComponent message={this.state.message1}/>:
