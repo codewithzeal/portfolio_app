@@ -28,12 +28,13 @@ class InputComponent extends Component {
     }
 
     inputHandle=(e)=>{
+        this.setState({warn:false})
        this.props.setUser(e.target.value)
 
     }
 
     validate=()=>{
-        
+
     }
 
     render()

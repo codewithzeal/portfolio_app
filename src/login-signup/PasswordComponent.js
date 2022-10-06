@@ -25,6 +25,7 @@ class PasswordComponent extends Component
     }
 
     handleInput=(e)=>{
+        this.setState({warn:false})
         this.props.setPassword(e.target.value)
     }
 
