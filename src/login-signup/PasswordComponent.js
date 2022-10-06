@@ -9,10 +9,11 @@ class PasswordComponent extends Component
             isVisible:false,
             messages:[
                 'password must be minimum 8 character',
-                'pass word must contain a numeric charater',
-                'pssword must have atleast one upperCase letter'
+                'password must contain a numeric charater',
+                'password should have uppercase character'
             ],
-            warn:false
+            warn:false,
+            show:false
         }
 
         this.BetterValidate=this.props.deBounce(this.validate,300)
@@ -29,27 +30,81 @@ class PasswordComponent extends Component
         this.props.setPassword(e.target.value)
     }
 
+    changeType()
+    {
+        this.setState((prevState)=>({show:!prevState.show}))
+    }
+
     render()
     {
+        const inputType=this.state.show?'text':'password'
+        const iconType=this.state.show?'fa fa-eye':'fa fa-eye-slash'
         return(<>
-        <input 
-            type="password" 
-            value={this.props.password} 
-            onKeyUp={()=>this.BetterValidate()}
-            onChange={this.handleInput}
-        />
 
-        {
-            this.state.warn&&this.props.password!==''?
-            <>
-                <WarningComponent message={this.state.messages[0]}/>
-                <WarningComponent message={this.state.messages[1]}/>
-                <WarningComponent message={this.state.messages[2]}/>
-            </>:
-            ''
+
+        <div className='input-group mt-3'>
+            <input 
+                type={inputType}
+                className='form-control shadow-none'
+                placeholder='password'
+                value={this.props.password} 
+                onKeyUp={()=>this.BetterValidate()}
+                onChange={this.handleInput}
+                style={{borderRightStyle:'hidden'}}
+            />
+            {
+                this.props.password!==''?
+                <span className="input-group-text"
+                  style={{width:'30px',justifyItems:'center',justifyContent:'center',backgroundColor:'white'}}
+                    
+                >
+                    
+                
+                    
+                    
+                        <center>
+                        {
+                            this.state.warn?
+                            <i className="fa fa-times"  aria-hidden="true" style={{color:'red'}}></i>:
+                            <i className="fa fa-check"  aria-hidden="true" style={{color:'green'}}></i>
+                                
+                        }
+                        </center>
+                    
+                    
+                
+                </span>:
+                ''
+            }
+            <span className="input-group-text"
+                  style={{width:'50px',justifyItems:'center',justifyContent:'center',cursor:'pointer'}}
+                  onClick={()=>this.changeType()}  
+            >
+                <center>
+                    <i className={iconType} aria-hidden="true" style={{verticalAlign:'middle'}} ></i>
+                </center>
+            </span>
             
-        }
+        </div>
 
+        <div className='text-danger' >
+            {
+                this.state.warn&&this.props.password!==''?
+                <>
+                    <p style={{float:'left'}}>
+                        <WarningComponent message={this.state.messages[0]}/>
+                    </p>
+                    <p style={{float:'left'}}>
+                        <WarningComponent message={this.state.messages[1]}/>
+                    </p>
+                    <p style={{float:'left'}}>
+                        <WarningComponent message={this.state.messages[1]}/>
+                    </p>
+                </>:
+                ''
+                
+            }
+        </div>
         </>)
         
     }

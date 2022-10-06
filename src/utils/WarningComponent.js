@@ -6,7 +6,7 @@ class WarningComponent extends Component{
     {
         return (
             <>
-                {this.props.message}
+                *{this.props.message}
             </>
             )
     }

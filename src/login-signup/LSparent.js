@@ -49,24 +49,24 @@ class LSParent extends Component {
     //const DebouncedCnfPassword=DebounceInput(CnfpasswordComponent)    
     return(
         
-        <div className=''>            
+        <form>            
             <DebouncedInput  
             role={roleInside} 
             username={usernameInside} 
             setUser={this.setUserName}
             />
-            <br/>
+            
             <DebouncedPassword  
             key="1" password={this.state.password} setPassword={this.setPassword}
             />
-            <br/>
+
             <DebouncedCnfPassword key="2" 
                 cnfPassword={this.state.confirmPassword} 
                 setCnfPassword={this.setConfirmPassword} 
                 password={this.state.password}
                 warn={this.state.password!==this.state.confirmPassword&&this.state.confirmPassword!==''}
             />
-        </div>
+        </form>
             
     )
    }
