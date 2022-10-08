@@ -22,7 +22,7 @@ class NavBar extends React.Component {
                     </div>
                   
 
-                    <ul className="navbar-nav ml-auto" >
+                    <ul className="navbar-nav mr-auto" >
                         <li className='nav-item'>
                         <button className="btn  btn-sm btn-success apibtn" onClick={this.getAPI}>API for recruiters</button>
                         </li>

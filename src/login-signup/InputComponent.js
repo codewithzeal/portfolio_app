@@ -7,28 +7,50 @@ class InputComponent extends Component {
         this.state={
             warn:false,
             type:'',
-            message1:'invalid character input',
-            message2:'user already exits',
+            messages:['username cannot have special charatcer',
+                      'username must be greater than 4 characters',
+                      'user already exists'      
+        ]
         }
 
+
+        
+
         this.fetch=()=>{
-            console.log("calling fecth simulation....")
-            const regex=/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/
-            const bool=regex.test(this.props.username)
-            !bool?
-            this.props.username==='naman'?
-            this.setState({warn:false},()=>{this.state.warn?this.props.setSubmit(true):this.props.setSubmit(false)}):
-            this.setState({warn:true,type:'invu'},()=>{
-                this.state.warn?this.props.setSubmit(true):this.props.setSubmit(false)
-            })
 
-            :this.setState(({warn:true,type:"invt"}),()=>{
-                this.state.warn?this.props.setSubmit(true):this.props.setSubmit(false)
+            console.log('here')
+            this.validate().then((isInvalid)=>{
+                if(isInvalid)
+                return
+                else
+                {
+                    console.log('here')
+                    if(this.props.username==='naman')
+                        this.updateWarn(false)
+                    else 
+                        this.updateWarn(true,'invu')
+                }
             })
-
         }
 
         this.betterFetch=this.props.deBounce(this.fetch.bind(this),300)
+    }
+
+
+    updateWarn=(warnStatus,warnType='invt')=>{
+
+        return new Promise((s,r)=>{
+
+            this.setState({
+                warn:warnStatus,
+                type:warnType
+            },()=>{
+                this.state.warn?this.props.setSubmit(true):
+                this.props.setSubmit(false)
+                s()
+            })
+        })
+       
     }
 
     inputHandle=(e)=>{
@@ -38,14 +60,20 @@ class InputComponent extends Component {
     }
 
     validate=()=>{
-
+        return new Promise((s,r)=>{
+        const regex=/[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/
+        let bool=this.props.username.length<=3
+        bool=bool||regex.test(this.props.username)
+        bool?this.updateWarn(true).then(()=>{s(bool)}):
+        this.updateWarn(false).then(()=>s(bool))
+        })
     }
 
     
 
     render()
     {
-        const {role,username}=this.props
+        //const {role,username}=this.props
         
         return(
             <>
@@ -55,9 +83,9 @@ class InputComponent extends Component {
                         type="text"
                         className='form-control shadow-none'
                         placeholder='username' 
-                        value={username}
+                        value={this.props.username}
                         onKeyUp={()=>{
-                            role==='signup'?
+                            this.props.role==='Signup'?
                             this.betterFetch():
                             this.validate()
                         }}
@@ -89,12 +117,21 @@ class InputComponent extends Component {
             </div>
                 <div className='text-danger' style={{float:'left'}}>
                 {
-                    this.state.warn?
+                    this.state.warn&&this.props.username?
                     <div className='text-danger' style={{float:'left',fontSize:'2.5vh'}}>
                         {
                             this.state.type==='invt'?
-                            <WarningComponent message={this.state.message1}/>:
-                            <WarningComponent message={this.state.message2}/>
+                            <>
+                                <p style={{float:'left',fontSize:'2.5vh'}}>
+                                    <WarningComponent message={this.state.messages[0]}/>
+                                </p>
+                                <p style={{float:'left',fontSize:'2.5vh'}}>
+                                    <WarningComponent message={this.state.messages[1]}/>
+                                </p>
+                            </>:
+                            <p style={{float:'left',fontSize:'2.5vh'}}>
+                                <WarningComponent message={this.state.messages[2]}/>
+                            </p>
                         }
                     </div>:
                     ''

@@ -12,12 +12,12 @@ class LSParent extends Component {
     constructor(props) {
         super(props);
         this.state={
-            role:'signup',
+            role:'Signup',
             username:'',
             password:'',
             confirmPassword:'',
-            shouldSubmit1:true,
-            shouldSubmit2:true,
+            shouldNotSubmit1:true,
+            shouldNotSubmit2:true,
         }
     }
 
@@ -35,16 +35,23 @@ class LSParent extends Component {
     }
 
     setSubmit1=(bool)=>{
-        this.setState(()=>({shouldSubmit1:bool}))
+        this.setState(()=>({shouldNotSubmit1:bool}))
     }
 
     setSubmit2=(bool)=>{
-        this.setState(()=>({shouldSubmit2:bool}))
+        this.setState(()=>({shouldNotSubmit2:bool}))
     }
 
     setRole=()=>{
         this.setState((prevState)=>({
-            role:prevState.role==='signup'?'login':'signup'
+            role:prevState.role==='Signup'?'Login':'Signup',
+            username:'',
+            password:'',
+            confirmPassword:'',
+            shouldNotSubmit1:true,
+            shouldNotSubmit2:true
+            
+
         }))
     }
 
@@ -53,7 +60,8 @@ class LSParent extends Component {
    render()
    {
     
-    console.log(this.state.role==='signup'&&this.state.password!==this.state.confirmPassword,this.state.shouldSubmit1,this.state.shouldSubmit2)
+    let shouldNotSubmit3=this.state.role==='Signup'&&this.state.password!==this.state.confirmPassword
+    console.log(this.state.shouldNotSubmit1,this.state.shouldNotSubmit2,this.state.role==='Signup',this.state.password!==this.state.confirmPassword)
     const roleInside=this.state.role
     const usernameInside=this.state.username
     //const DebouncedCnfPassword=DebounceInput(CnfpasswordComponent)    
@@ -75,7 +83,7 @@ class LSParent extends Component {
 
                 
                 {
-                    this.state.role==='signup'?
+                    this.state.role==='Signup'?
                     <DebouncedCnfPassword key="2" 
                     cnfPassword={this.state.confirmPassword} 
                     setCnfPassword={this.setConfirmPassword} 
@@ -85,7 +93,7 @@ class LSParent extends Component {
                     />:''
                 }
 
-                <button className='form-control shadow-none btn btn-primary mt-3' disabled={this.state.shouldSubmit1||this.state.shouldSubmit2||(this.state.role==='signup'&&this.state.password!==this.state.confirmPassword)}>
+                <button className='form-control shadow-none btn btn-primary mt-3' disabled={this.state.shouldNotSubmit1||this.state.shouldNotSubmit2||shouldNotSubmit3}>
                     {this.state.role}
                 </button>
 
@@ -94,15 +102,15 @@ class LSParent extends Component {
                     {
                         float:'right',color:'white',
                         textDecoration:'underline',
-                        cursor:'poniter'
+                       cursor:'pointer'
                     }}
                     onClick={this.setRole} 
                 >
                     
                     {
-                        this.state.role==='signup'?
-                        'Already a user?login':
-                        'New user?Register'
+                        this.state.role==='Signup'?
+                        <>Already a user?Login</>:
+                        <>New user?Register</>
                     }
                 </p>
 
