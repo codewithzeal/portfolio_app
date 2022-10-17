@@ -4,10 +4,7 @@ const DebounceInput=(OldComponent)=>{
 
     class NewComponent extends Component
     {
-        constructor(props)
-        {
-            super(props)
-        }
+        
         deBounce=(fn,delay)=>
         {
             let Timer

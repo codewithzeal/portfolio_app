@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import WarningComponent from '../utils/WarningComponent';
+import axios from 'axios';
 class InputComponent extends Component {
     constructor(props) {
         super(props);
@@ -16,7 +17,7 @@ class InputComponent extends Component {
 
         
 
-        this.fetch=()=>{
+        this.getData=(val)=>{
 
             console.log('here')
             this.validate().then((isInvalid)=>{
@@ -24,16 +25,24 @@ class InputComponent extends Component {
                 return
                 else
                 {
-                    console.log('here')
-                    if(this.props.username==='naman')
-                        this.updateWarn(false)
-                    else 
-                        this.updateWarn(true,'invu')
+                    axios.post('http://localhost:8080/verify', {
+                        username: val
+                      })
+                      .then((res)=>{
+                        console.log(res)
+                            if(res.data==="ok")
+                            this.updateWarn(false)
+                            else
+                            this.updateWarn(true,'invu')
+                      })
+                      .catch(function (error) {
+                        console.log(error);
+                      });
                 }
             })
         }
 
-        this.betterFetch=this.props.deBounce(this.fetch.bind(this),300)
+        this.betterFetch=this.props.deBounce(this.getData.bind(this),300)
     }
 
 
@@ -54,6 +63,7 @@ class InputComponent extends Component {
     }
 
     inputHandle=(e)=>{
+        this.props.setSubmit(true)
         this.setState({warn:false})
        this.props.setUser(e.target.value)
 
@@ -86,7 +96,7 @@ class InputComponent extends Component {
                         value={this.props.username}
                         onKeyUp={()=>{
                             this.props.role==='Signup'?
-                            this.betterFetch():
+                            this.betterFetch(this.props.username):
                             this.validate()
                         }}
                         onChange={this.inputHandle}

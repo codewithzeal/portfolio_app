@@ -15,7 +15,7 @@ class NavBar extends React.Component {
 
 
         return(
-            <nav className="navbar topNav navbar-expand">
+            <nav className="navbar topNav navbar-expand fixed-top">
                 
                     <div className='navbar-brand'>
                         <SVG />

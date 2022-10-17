@@ -3,6 +3,7 @@ import InputComponent from "./InputComponent";
 import DebounceInput from "../utils/DebounceInput";
 import PasswordComponent from './PasswordComponent';
 import ConfirmPasswordComponenet from './ConfirmPasswordComponent';
+import axios from 'axios';
 //declare child component here beacuse each time render is called new set of
 //child component renders and not updates
 const DebouncedInput=DebounceInput(InputComponent)
@@ -55,13 +56,45 @@ class LSParent extends Component {
         }))
     }
 
+    signup=(e)=>{
+        e.preventDefault()
+        axios.post('http://localhost:8080/signup',{
+            username:this.state.username,
+            password:this.state.password
+        }).then((res)=>{
+            if(res.data==="ok")
+            {
+                alert("registered successfully")
+                this.setState({role:'Login'})
+            }
+            
+        })
+    }
 
+
+    login=(e)=>{
+        e.preventDefault()
+        axios.post('http://localhost:8080/login',{
+            username:this.state.username,
+            password:this.state.password
+        }).then((res)=>{
+            if(res.data==="ok")
+            {
+                alert("logged in")
+            }
+            else
+            {
+                alert("invalid credentials")
+            }
+            
+        })
+    }
 
    render()
    {
     
     let shouldNotSubmit3=this.state.role==='Signup'&&this.state.password!==this.state.confirmPassword
-    console.log(this.state.shouldNotSubmit1,this.state.shouldNotSubmit2,this.state.role==='Signup',this.state.password!==this.state.confirmPassword)
+    
     const roleInside=this.state.role
     const usernameInside=this.state.username
     //const DebouncedCnfPassword=DebounceInput(CnfpasswordComponent)    
@@ -93,7 +126,14 @@ class LSParent extends Component {
                     />:''
                 }
 
-                <button className='form-control shadow-none btn btn-primary mt-3' disabled={this.state.shouldNotSubmit1||this.state.shouldNotSubmit2||shouldNotSubmit3}>
+                <button 
+                    className='form-control shadow-none btn btn-primary mt-3' 
+                    disabled={this.state.shouldNotSubmit1||this.state.shouldNotSubmit2||shouldNotSubmit3}
+                    onClick={this.state.role==="Signup"?
+                        this.signup:
+                        this.login
+                    }
+                >
                     {this.state.role}
                 </button>
 

@@ -2,13 +2,15 @@
 import ReactDOM from 'react-dom/client';
 import NavBar from './navBar/nav_bar';
 import LSFinalView from './login-signup/LSFinalView';
+import ParentContainer from './homePage/container/ParentContainer';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
  
     
     <>
     <NavBar />
-    <LSFinalView/>
+    
+    <ParentContainer/>
     </>
  
 );

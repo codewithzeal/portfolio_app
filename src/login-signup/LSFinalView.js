@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import LSParent from './LSparent';
-import logo from './final.svg'
 class LSFinalView extends Component {
     
     render()
