@@ -3,10 +3,10 @@ import { BrowserRouter, Routes } from 'react-router-dom';
 import BottomNavbar from './bottom_navbar';
 import { Route } from 'react-router-dom';
 import BasicComponent from '../basic_detail/BasicComponent';
-import EducationComponent from '../education/EducationComponent';
 import WorkExperienceComponent from '../work_experience/WorkExperienceComponent';
 import ProjectComponent from '../projects/ProjectComponent';
 import ViewComponent from '../viewComponent/ViewComponent';
+import EducationParent from '../education/EducationParent';
 class ParentContainer extends Component {
     constructor(props) {
         super(props);
@@ -19,7 +19,9 @@ class ParentContainer extends Component {
             we:'',
             education:'',
             basic:'',
-            view:''
+            view:'',
+            skills:'',
+            address:''
         }
 
         this.saveHistory=(val,type)=>
@@ -35,7 +37,11 @@ class ParentContainer extends Component {
             this.historyStack.education=val
             else if(type==="view")
             this.historyStack.view=val
-            console.log(this.historyStack.basic,val,'bahar')
+            else if(type==="skills")
+            this.historyStack.skills=val
+            else if(type==="address")
+            this.historyStack.address=val
+            console.log(val,'bahar')
         }
 
         this.getHistory=()=>{
@@ -61,7 +67,7 @@ class ParentContainer extends Component {
                     <Routes>
                         <Route path="home" element={<BottomNavbar routeValue={this.state.route}/>}>
                             <Route path="basic" element={<BasicComponent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory} />}/>
-                            <Route path='education' element={<EducationComponent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory}/>}/>
+                            <Route path='education' element={<EducationParent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory}/>}/>
                             <Route path='we' element={<WorkExperienceComponent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory}/>}/>
                             <Route path='projects' element={<ProjectComponent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory}/>}/>
                             <Route path='view' element={<ViewComponent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory}/>}/>

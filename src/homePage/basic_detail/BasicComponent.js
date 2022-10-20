@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import EnhancedInput from '../../utils/InputComponent';
 import { validateContacts, validateEmail, validateLinkedInUrl, validateName } from './validators';
 import '../container/style.css'
+import SkillComponent from './SkillComponent';
+import AddressComponent from './AddressComponent';
 class BasicComponent extends Component {
     constructor(props) {
         super(props);
@@ -23,7 +25,7 @@ class BasicComponent extends Component {
 
         this.fetchStateFromDatabase=()=>{
             return new Promise((s,r)=>{
-                axios.post('http://localhost:8080/fetch/test').then((res)=>{res?s(res.data[0].basicDetails):s(null)})
+                axios.post('http://localhost:8080/fetch/test').then((res)=>{res?s(res.data[0].basicDetails):s(null)}).catch((res)=>{s(null)})
             })
         }
     }
@@ -37,7 +39,7 @@ class BasicComponent extends Component {
         this.setState((this.props.getHistory().basic))
         if(this.props.getHistory().basic==='')
         await this.fetchStateFromDatabase().then((res)=>{
-            if(!res)
+            if(res.fullName===null)
             return
             console.log(res,"haan ye wala")
             res["shouldSubmit"]=false
@@ -105,6 +107,7 @@ class BasicComponent extends Component {
 
                     <h2>Basic Information</h2>
                     <EnhancedInput 
+                        classValue="form-control mt-2"
                         value={this.state.fullName}
                         setValue={this.setFullName}
                         validate={validateName}
@@ -113,7 +116,8 @@ class BasicComponent extends Component {
                         setSubmit={this.setSubmitStatus}
                     />
                    
-                   <EnhancedInput 
+                   <EnhancedInput
+                        classValue="form-control mt-2"
                         value={this.state.email}
                         setValue={this.setEmail}
                         validate={validateEmail}
@@ -122,6 +126,7 @@ class BasicComponent extends Component {
                         setSubmit={this.setSubmitStatus}
                     />
                     <EnhancedInput 
+                        classValue="form-control mt-2"
                         value={this.state.contact}
                         setValue={this.setContact}
                         validate={validateContacts}
@@ -130,6 +135,7 @@ class BasicComponent extends Component {
                         setSubmit={this.setSubmitStatus}
                     />
                     <EnhancedInput 
+                        classValue="form-control mt-2"
                         value={this.state.linkedInUrl}
                         setValue={this.setLinkedInURL}
                         validate={validateLinkedInUrl}
@@ -155,11 +161,19 @@ class BasicComponent extends Component {
                         {this.state.buttonValue}
                     </button>
                     <hr/>
-                    
-
-
 
                 </div>
+
+
+                <SkillComponent getHistory={this.props.getHistory} saveHistory={this.props.saveHistory} />
+                    <br/>
+                    <AddressComponent getHistory={this.props.getHistory} saveHistory={this.props.saveHistory} />
+
+                    {
+                        //useless div to increase height
+                    }
+                <div style={{height:'400px'}} ></div>
+
             </>
         ) 
    }

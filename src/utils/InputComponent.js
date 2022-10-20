@@ -32,6 +32,8 @@ class EnhancedInput extends Component {
     }
 
     validate=()=>{
+        if(!this.props.validate)
+        return
         if(this.props.validate(this.props.value))
         this.setState({warn:false},()=>{this.props.setSubmit(true)})
         else
@@ -43,7 +45,7 @@ class EnhancedInput extends Component {
         return(
             <>
                 <input 
-                    className='form-control mt-2' 
+                    className={this.props.classValue}
                     type="text" 
                     placeholder={this.props.placeHolder}
                     value={this.props.value}
@@ -51,9 +53,10 @@ class EnhancedInput extends Component {
                     onKeyUp={this.deBounce(this.validate,300)}
                 />
                 
+
                 {
                     this.state.warn&&this.props.value?
-                    <div>
+                    <div className='w-100 mt-2'>
                         {
                             this.props.messages.map((item,index)=>(
                                 <p key={index} style={{float:'left',fontSize:'2.5vh',color:'yellow'}}>

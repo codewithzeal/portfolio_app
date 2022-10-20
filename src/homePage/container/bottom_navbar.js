@@ -76,7 +76,7 @@ class BottomNavbar extends Component {
                                     <Link className="nav-link" to='education'style={routeNumber===2?activeState:unActiveState}>Education</Link>
                                 </li>
                                 <li className={routeNumber===3?"nav-item mybgclass":"nav-item bg-light"} style={this.getStyle(routeNumber,3)}>
-                                    <Link className="nav-link" to="we" style={routeNumber===3?activeState:unActiveState}>Work Experience</Link>
+                                    <Link className="nav-link" to="we" style={routeNumber===3?activeState:unActiveState}>Experience</Link>
                                 </li>
                                 <li className={routeNumber===4?"nav-item mybgclass":"nav-item bg-light"} style={this.getStyle(routeNumber,4)}>
                                     <Link className="nav-link" to="projects" style={routeNumber===4?activeState:unActiveState}>Projects</Link>
