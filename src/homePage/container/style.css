@@ -16,3 +16,8 @@ h2
    margin-top: 10px; 
    border-radius: 12px 12px 12px 12px;
 }
+
+.eduUnit
+{
+    background-color: rgba(170, 28, 52, 0.778);
+}

@@ -3,10 +3,10 @@ import { BrowserRouter, Routes } from 'react-router-dom';
 import BottomNavbar from './bottom_navbar';
 import { Route } from 'react-router-dom';
 import BasicComponent from '../basic_detail/BasicComponent';
-import WorkExperienceComponent from '../work_experience/WorkExperienceComponent';
-import ProjectComponent from '../projects/ProjectComponent';
 import ViewComponent from '../viewComponent/ViewComponent';
 import EducationParent from '../education/EducationParent';
+import WeParent from '../work_experience/WeParent';
+import ProjectsParent from '../projects/ProjectParent';
 class ParentContainer extends Component {
     constructor(props) {
         super(props);
@@ -68,8 +68,8 @@ class ParentContainer extends Component {
                         <Route path="home" element={<BottomNavbar routeValue={this.state.route}/>}>
                             <Route path="basic" element={<BasicComponent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory} />}/>
                             <Route path='education' element={<EducationParent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory}/>}/>
-                            <Route path='we' element={<WorkExperienceComponent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory}/>}/>
-                            <Route path='projects' element={<ProjectComponent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory}/>}/>
+                            <Route path='we' element={<WeParent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory}/>}/>
+                            <Route path='projects' element={<ProjectsParent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory}/>}/>
                             <Route path='view' element={<ViewComponent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory}/>}/>
                         </Route>
                     </Routes>

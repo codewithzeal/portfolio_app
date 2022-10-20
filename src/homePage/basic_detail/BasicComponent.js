@@ -39,7 +39,7 @@ class BasicComponent extends Component {
         this.setState((this.props.getHistory().basic))
         if(this.props.getHistory().basic==='')
         await this.fetchStateFromDatabase().then((res)=>{
-            if(res.fullName===null)
+            if(!res||res.fullName===null)
             return
             console.log(res,"haan ye wala")
             res["shouldSubmit"]=false

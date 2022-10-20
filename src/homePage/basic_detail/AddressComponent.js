@@ -24,6 +24,8 @@ class AddressComponent extends Component {
         else
         axios.post('http://localhost:8080/fetch/test').then((res)=>{
             res=res.data[0].address
+            if(res.adrline1===null)
+            return
             res["warn"]=false
             res["buttonValue"]='Update address'
             this.setState((prevState)=>(res))

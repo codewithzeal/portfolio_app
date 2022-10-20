@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import EnhancedInput from '../../utils/InputComponent';
 import axios from 'axios';
 import { validateName } from '../basic_detail/validators';
+import '../container/style.css'
 class EducationComponent extends Component {
     constructor(props) {
         super(props);
@@ -76,7 +77,16 @@ class EducationComponent extends Component {
                 education:[res]
             }
         }).then((res)=>{
-            this.setState({buttonValue:'Updated',warn:false})
+            if(!this.props.value)
+            this.props.addToArray(this.state)
+            this.setState({
+                stream:'',
+                startDate:'',
+                endDate:'',
+                cgpa:'',
+                institute:'',
+                buttonValue:'Updated',
+                warn:false})
         })
     }
 
@@ -85,7 +95,13 @@ class EducationComponent extends Component {
         const inputIconsArray=[]
         return(
             <>
-                <div className='row m-3 p-0 mt-4'>
+                <div className='row m-2 p-4 mt-4  eduUnit'
+                     style={{borderRadius:'10px 10px 10px 10px'}}
+                >
+                    {
+                        this.props.eduCount!==undefined?<h2>Eduction {this.props.eduCount+1}</h2>:
+                        <h2>Add education</h2>
+                    }
                 <EnhancedInput
                         classValue="form-control"
                         value={this.state.institute}
@@ -113,11 +129,11 @@ class EducationComponent extends Component {
                 <div className='mt-2'>
                     <div className='w-100' style={{position:'relative',left:'-10px'}} >
                         <label htmlFor="start" style={{color:'white'}} >Start Date: {this.state.startDate}</label>
-                        <input   type="date" id="start" onChange={this.setStartDate} style={{width:'24px',position:'relative',left:'23px'}} />
+                        <input   type="date" id="start" onChange={this.setStartDate} style={{width:'24px',position:'relative',float:'right',marginRight:'5vw'}} />
                     </div>
                     <div className='w-100 mt-2' style={{position:'relative',left:'-10px'}} >
                         <label htmlFor="end" style={{color:'white'}}>End Date: {this.state.endDate}</label>
-                        <input type="date" id="end"onChange={this.setEndDate} style={{width:'24px',position:'relative',left:'30px'}}/>
+                        <input type="date" id="end"onChange={this.setEndDate} style={{width:'24px',position:'relative',float:'right',marginRight:'5vw'}}/>
                     </div>
                 </div>
                 <EnhancedInput
