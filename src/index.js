@@ -7,7 +7,6 @@ root.render(
  
     
     <>
-    <NavBar />
     <App/>
     </>
  

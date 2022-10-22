@@ -78,9 +78,9 @@ class LSParent extends Component {
             username:this.state.username,
             password:this.state.password
         }).then((res)=>{
-            if(res.data==="ok")
+            if(res.data!=="nok")
             {
-               this.props.setUserName(this.state.username).then(()=>{})
+               this.props.setUserName(res,this.state.username).then(()=>{})
                 
             }
             else

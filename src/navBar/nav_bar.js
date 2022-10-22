@@ -22,11 +22,14 @@ class NavBar extends React.Component {
                     </div>
                   
 
-                    <ul className="navbar-nav mr-auto" >
-                        <li className='nav-item'>
-                        <button className="btn  btn-sm btn-success apibtn" onClick={this.getAPI}>API for recruiters</button>
-                        </li>
-                    </ul>
+                    { this.props.showLogOut?
+                        <ul className="navbar-nav mr-auto" >
+                            <li className='nav-item'>
+                            <button className="btn  btn-sm btn-success apibtn" onClick={this.getAPI}>API for recruiters</button>
+                            </li>
+                        </ul>:
+                        ''
+                    }
                 
             </nav>
         );
