@@ -20,12 +20,12 @@ class LSFinalView extends Component {
                                 height:'max-content',
                                 backgroundColor:'rgb(87, 207, 123)',
                                 position:'relative',
-                                top:'10vh'
+                                top:'20vh'
                                 
                             }}
                             >
                             <center>
-                                <LSParent/>
+                                <LSParent setUserName={this.props.setUserName}/>
                             </center>
                         </div>
                         <div className='col-sm-8'style={

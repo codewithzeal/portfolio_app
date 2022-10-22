@@ -22,7 +22,9 @@ class AddressComponent extends Component {
         if(this.props.getHistory().address!=='')
         this.setState((this.props.getHistory().address))
         else
-        axios.post('http://localhost:8080/fetch/test').then((res)=>{
+        axios.post('http://localhost:8080/fetch/'+this.props.userID).then((res)=>{
+            if(!res.data[0])
+            return
             res=res.data[0].address
             if(res.adrline1===null)
             return
@@ -70,7 +72,7 @@ class AddressComponent extends Component {
         axios.post('http://localhost:8080/update',{
             type:'address',
             userToUpdate:{
-                username:'test',
+                username:this.props.userID,
                 address:{
                     adrline1:this.state.adrline1,
                     country:this.state.country,

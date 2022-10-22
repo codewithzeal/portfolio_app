@@ -9,8 +9,9 @@ class EducationParent extends Component {
             emptyInput:1
         }
         this.fetchStateFromDatabase=()=>{
+            console.log("parent component with prop value"+this.props.userID)
             return new Promise((s,r)=>{
-                axios.post('http://localhost:8080/fetch/test').then((res)=>{res?s(res.data[0].education):s(null)}).catch((res)=>{s(null)})
+                axios.post('http://localhost:8080/fetch/'+this.props.userID).then((res)=>{res?s(res.data[0].education):s(null)}).catch((res)=>{s(null)})
             })
         }
     }
@@ -42,7 +43,7 @@ class EducationParent extends Component {
             {
                this.state.eduArray.map((item,index)=>(
 
-                        <EducationComponent value={item} eduCount={index} key={index}/>
+                        <EducationComponent value={item} eduCount={index} key={index} userID={this.props.userID}/>
                    
                ))
             }
@@ -50,7 +51,7 @@ class EducationParent extends Component {
                     Array(this.state.emptyInput).fill().map((v, i)=> (
                         
                                 
-                                <EducationComponent key={i} addToArray={this.addToArray}/>
+                                <EducationComponent key={i} addToArray={this.addToArray} userID={this.props.userID}/>
                             
                         
                     ))

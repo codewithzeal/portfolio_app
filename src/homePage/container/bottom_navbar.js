@@ -70,7 +70,7 @@ class BottomNavbar extends Component {
                         <div className="collapse navbar-collapse" >
                             <ul className="navbar-nav nav-fill w-100 " style={{fontSize:'12px',position:'absolute',bottom:'0px',width:'100%',left:'0px',height:'8vh'}} >
                                 <li className={routeNumber===1?"nav-item mybgclass":"nav-item bg-light"} style={this.getStyle(routeNumber,1)} >
-                                    <Link to="basic" className="nav-link" style={routeNumber===1?activeState:unActiveState}>Home</Link>
+                                    <Link to="" className="nav-link" style={routeNumber===1?activeState:unActiveState}>Home</Link>
                                 </li>
                                 <li className={routeNumber===2?"nav-item mybgclass":"nav-item bg-light"} style={this.getStyle(routeNumber,2)}>
                                     <Link className="nav-link" to='education'style={routeNumber===2?activeState:unActiveState}>Education</Link>

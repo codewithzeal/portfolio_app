@@ -25,7 +25,7 @@ class BasicComponent extends Component {
 
         this.fetchStateFromDatabase=()=>{
             return new Promise((s,r)=>{
-                axios.post('http://localhost:8080/fetch/test').then((res)=>{res?s(res.data[0].basicDetails):s(null)}).catch((res)=>{s(null)})
+                axios.post('http://localhost:8080/fetch/'+this.props.userID).then((res)=>{res?s(res.data[0].basicDetails):s(null)}).catch((res)=>{s(null)})
             })
         }
     }
@@ -90,7 +90,7 @@ class BasicComponent extends Component {
             type:'basic',
             userToUpdate:
             {
-                username:'test',
+                username:this.props.userID,
                 basicDetails:this.state
             }
         }).then((res)=>{
@@ -165,9 +165,9 @@ class BasicComponent extends Component {
                 </div>
 
 
-                <SkillComponent getHistory={this.props.getHistory} saveHistory={this.props.saveHistory} />
+                <SkillComponent getHistory={this.props.getHistory} saveHistory={this.props.saveHistory} userID={this.props.userID}/>
                     <br/>
-                    <AddressComponent getHistory={this.props.getHistory} saveHistory={this.props.saveHistory} />
+                    <AddressComponent getHistory={this.props.getHistory} saveHistory={this.props.saveHistory} userID={this.props.userID}/>
 
                     {
                         //useless div to increase height

@@ -13,11 +13,16 @@ class EducationComponent extends Component {
             cgpa:'',
             institute:'',
             warn:false,
-            buttonValue:'Save education'
+            buttonValue:'Save education',
+            validator:true
         }
         
     }
     
+    getFormStatus=()=>{
+        return this.state.stream&&this.state.institute&&this.state.startDate&&this.state.endDate&&this.state.cgpa
+    }
+
     componentDidMount()
     {
         console.log(this.props.value,"printing each unit value")
@@ -39,10 +44,17 @@ class EducationComponent extends Component {
     }
 
     setStartDate=(e)=>{
+
+        let bool= this.getFormStatus()
+        if(bool&&this.state.validator)
+        this.setState({warn:true})
         this.setState({startDate:e.target.value})
     }
 
     setEndDate=(e)=>{
+        let bool= this.getFormStatus()
+        if(bool&&this.state.validator)
+        this.setState({warn:true})
         this.setState({endDate:e.target.value})
     }
 
@@ -53,13 +65,14 @@ class EducationComponent extends Component {
 
     setSubmitStatus=(val)=>{
         if(val)
-        this.setState({warn:true})
+        this.setState({warn:true,validator:true})
         else
-        this.setState({warn:false})
+        this.setState({warn:false,validator:false})
     }
 
 
     updateEducation=()=>{
+        console.log("updating education for "+this.props.userID)
         this.setState({buttonValue:'Updating....',warn:true})
         let res={
             stream:this.state.stream,
@@ -73,21 +86,29 @@ class EducationComponent extends Component {
         axios.post('http://localhost:8080/update',{
             type:'edu',
             userToUpdate:{
-                username:'test',
+                username:this.props.userID,
                 education:[res]
             }
         }).then((res)=>{
             if(!this.props.value)
             this.props.addToArray(this.state)
+            if(this.props.value)
             this.setState({
-                stream:'',
-                startDate:'',
-                endDate:'',
-                cgpa:'',
-                institute:'',
                 buttonValue:'Updated',
                 warn:false})
+            else
+            {
+                this.setState({
+                    stream:'',
+                    startDate:'',
+                    endDate:'',
+                    cgpa:'',
+                    institute:'',
+                    buttonValue:'Updated',
+                    warn:false})
+            }
         })
+        
     }
 
     render()

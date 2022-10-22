@@ -10,7 +10,7 @@ class WeParent extends Component {
         }
         this.fetchStateFromDatabase=()=>{
             return new Promise((s,r)=>{
-                axios.post('http://localhost:8080/fetch/test').then((res)=>{res?s(res.data[0].workExperiences):s(null)}).catch((res)=>{s(null)})
+                axios.post('http://localhost:8080/fetch/'+this.props.userID).then((res)=>{res?s(res.data[0].workExperiences):s(null)}).catch((res)=>{s(null)})
             })
         }
     }
@@ -46,8 +46,8 @@ class WeParent extends Component {
             
             {
                this.state.weArray.map((item,index)=>(
-
-                        <WorkExperienceComponent value={item} eduCount={index} key={index}/>
+ 
+                        <WorkExperienceComponent value={item} eduCount={index} key={index} userID={this.props.userID}/>
                    
                ))
             }
@@ -55,7 +55,7 @@ class WeParent extends Component {
                     Array(this.state.emptyInput).fill().map((v, i)=> (
                         
                                 
-                                <WorkExperienceComponent key={i} addToArray={this.addToArray}/>
+                                <WorkExperienceComponent key={i} addToArray={this.addToArray} userID={this.props.userID}/>
                             
                         
                     ))

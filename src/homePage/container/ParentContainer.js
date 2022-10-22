@@ -7,11 +7,14 @@ import ViewComponent from '../viewComponent/ViewComponent';
 import EducationParent from '../education/EducationParent';
 import WeParent from '../work_experience/WeParent';
 import ProjectsParent from '../projects/ProjectParent';
+import LSFinalView from '../../login-signup/LSFinalView';
 class ParentContainer extends Component {
     constructor(props) {
         super(props);
         this.state={
-            route:'basic'
+            route:'basic',
+            isLoggedIn:'',
+            username:''
         }
 
         this.historyStack={
@@ -53,11 +56,14 @@ class ParentContainer extends Component {
 
     }
 
-
+   
 
     updateRoute=(val)=>{
         this.setState({route:val})
     }
+
+
+    
 
    render()
    {
@@ -65,13 +71,14 @@ class ParentContainer extends Component {
             <>
                 <BrowserRouter>
                     <Routes>
-                        <Route path="home" element={<BottomNavbar routeValue={this.state.route}/>}>
-                            <Route path="basic" element={<BasicComponent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory} />}/>
-                            <Route path='education' element={<EducationParent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory}/>}/>
-                            <Route path='we' element={<WeParent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory}/>}/>
-                            <Route path='projects' element={<ProjectsParent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory}/>}/>
-                            <Route path='view' element={<ViewComponent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory}/>}/>
-                        </Route>
+                            
+                                <Route path="" element={<BottomNavbar routeValue={this.state.route}/>}>
+                                    <Route index element={<BasicComponent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory} userID={this.props.username}/>}/>
+                                    <Route path='education' element={<EducationParent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory} userID={this.props.username}/>}/>
+                                    <Route path='we' element={<WeParent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory} userID={this.props.username}/>}/>
+                                    <Route path='projects' element={<ProjectsParent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory} userID={this.props.username}/>}/>
+                                    <Route path='view' element={<ViewComponent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory} userID={this.props.username}/>}/>
+                                </Route>
                     </Routes>
                 </BrowserRouter>
             </>

@@ -21,3 +21,40 @@ h2
 {
     background-color: rgba(170, 28, 52, 0.778);
 }
+
+.basic-details
+{
+    padding: 50px;
+    padding-top: 0px;
+    height: auto;
+    border-radius: 0px 0px 50px 50px;
+    border: 1px solid white;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    overflow-wrap: break-word;
+    color: white;
+}
+
+
+@media (max-width: 576px) { 
+
+    .detail-menu-bar
+    {
+        font-size: 10px;
+        color: black;
+    }
+
+ }
+
+
+@media (min-width: 768px) { 
+
+    .detail-menu-bar
+    {
+        font-size: 16px;
+        color: black;
+    }
+
+ }

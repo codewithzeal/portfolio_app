@@ -80,7 +80,8 @@ class LSParent extends Component {
         }).then((res)=>{
             if(res.data==="ok")
             {
-                alert("logged in")
+               this.props.setUserName(this.state.username).then(()=>{})
+                
             }
             else
             {

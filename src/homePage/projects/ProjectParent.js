@@ -10,7 +10,7 @@ class ProjectsParent extends Component {
         }
         this.fetchStateFromDatabase=()=>{
             return new Promise((s,r)=>{
-                axios.post('http://localhost:8080/fetch/test').then((res)=>{res?s(res.data[0].projects):s(null)}).catch((res)=>{s(null)})
+                axios.post('http://localhost:8080/fetch/'+this.props.userID).then((res)=>{res?s(res.data[0].projects):s(null)}).catch((res)=>{s(null)})
             })
         }
     }
@@ -47,7 +47,7 @@ class ProjectsParent extends Component {
             {
                this.state.projectsArray.map((item,index)=>(
 
-                        <ProjectComponent value={item} eduCount={index} key={index}/>
+                        <ProjectComponent value={item} eduCount={index} key={index} userID={this.props.userID}/>
                    
                ))
             }
@@ -55,7 +55,7 @@ class ProjectsParent extends Component {
                     Array(this.state.emptyInput).fill().map((v, i)=> (
                         
                                 
-                                <ProjectComponent key={i} addToArray={this.addToArray}/>
+                                <ProjectComponent key={i} addToArray={this.addToArray} userID={this.props.userID}/>
                             
                         
                     ))

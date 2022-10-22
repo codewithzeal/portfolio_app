@@ -12,11 +12,16 @@ class WorkExperienceComponent extends Component {
             startDate:'',
             endDate:'',
             warn:false,
-            buttonValue:'Save experience'
+            buttonValue:'Save experience',
+            validator:true
         }
         
     }
     
+    getFormStatus=()=>{
+        return this.state.organization&&this.state.startDate&&this.state.endDate&&this.state.position
+    }
+
     componentDidMount()
     {
         console.log(this.props.value,"printing each unit value")
@@ -38,10 +43,16 @@ class WorkExperienceComponent extends Component {
     }
 
     setStartDate=(e)=>{
+        let bool= this.getFormStatus()
+        if(bool&&this.state.validator)
+        this.setState({warn:true})
         this.setState({startDate:e.target.value})
     }
 
     setEndDate=(e)=>{
+        let bool= this.getFormStatus()
+        if(bool&&this.state.validator)
+        this.setState({warn:true})
         this.setState({endDate:e.target.value})
     }
 
@@ -50,9 +61,9 @@ class WorkExperienceComponent extends Component {
 
     setSubmitStatus=(val)=>{
         if(val)
-        this.setState({warn:true})
+        this.setState({warn:true,validator:true})
         else
-        this.setState({warn:false})
+        this.setState({warn:false,validator:false})
     }
 
 
@@ -69,19 +80,21 @@ class WorkExperienceComponent extends Component {
         axios.post('http://localhost:8080/update',{
             type:'we',
             userToUpdate:{
-                username:'test',
+                username:this.props.userID,
                 workExperiences:[res]
             }
         }).then((res)=>{
             if(!this.props.value)
             this.props.addToArray(this.state)
+            !this.props.value?
             this.setState({
                 organization:'',
                 startDate:'',
                 endDate:'',
                 position:'',
                 buttonValue:'Updated',
-                warn:false})
+                warn:false}):
+                this.setState({warn:false,buttonValue:'Updated'})
         })
     }
 

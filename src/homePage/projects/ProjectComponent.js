@@ -13,11 +13,16 @@ class ProjectComponent extends Component {
             endDate:'',
             url:'',
             warn:false,
-            buttonValue:'Save experience'
+            buttonValue:'Save experience',
+            validator:true
         }
         
     }
     
+    getFormStatus=()=>{
+        return this.state.title&&this.state.description&&this.state.startDate&&this.state.endDate&&this.state.url
+    }
+
     componentDidMount()
     {
         console.log(this.props.value,"printing each unit value")
@@ -35,14 +40,23 @@ class ProjectComponent extends Component {
     }
 
     setDescription=(e)=>{
+        let bool= this.getFormStatus()
+        if(bool&&this.state.validator)
+        this.setState({warn:true})
         this.setState({description:e.target.value})
     }
 
     setStartDate=(e)=>{
+        let bool= this.getFormStatus()
+        if(bool&&this.state.validator)
+        this.setState({warn:true})
         this.setState({startDate:e.target.value})
     }
 
     setEndDate=(e)=>{
+        let bool= this.getFormStatus()
+        if(bool&&this.state.validator)
+        this.setState({warn:true})
         this.setState({endDate:e.target.value})
     }
 
@@ -53,9 +67,9 @@ class ProjectComponent extends Component {
 
     setSubmitStatus=(val)=>{
         if(val)
-        this.setState({warn:true})
+        this.setState({warn:true,validator:true})
         else
-        this.setState({warn:false})
+        this.setState({warn:false,validator:false})
     }
 
 
@@ -73,12 +87,14 @@ class ProjectComponent extends Component {
         axios.post('http://localhost:8080/update',{
             type:'projects',
             userToUpdate:{
-                username:'test',
+                username:this.props.userID,
                 projects:[res]
             }
         }).then((res)=>{
             if(!this.props.value)
             this.props.addToArray(this.state)
+            this.props.value?
+            this.setState({buttonValue:'Updated',warn:false}):
             this.setState({
                 title:'',
                 startDate:'',

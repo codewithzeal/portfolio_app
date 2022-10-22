@@ -34,7 +34,7 @@ class SkillComponent extends Component {
         axios.post('http://localhost:8080/update',{
             type:'skills',
             userToUpdate:{
-                username:'test',
+                username:this.props.userID,
                 skills:this.state.skills
             }
         }).then((res)=>{
@@ -47,7 +47,7 @@ class SkillComponent extends Component {
         if(this.props.getHistory().skills!=='')
         this.setState((this.props.getHistory().skills))
         else
-        axios.post('http://localhost:8080/fetch/test').then((res)=>{
+        axios.post('http://localhost:8080/fetch/'+this.props.userID).then((res)=>{
             this.setState((prevState)=>({skills:[...prevState.skills,...res.data[0].skills]}))
         })
     }
