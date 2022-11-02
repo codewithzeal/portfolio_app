@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import EnhancedInput from '../../utils/InputComponent';
 import axios from 'axios';
-import { validateName } from '../basic_detail/validators';
+import { cgpaValidator,  validateName } from '../basic_detail/validators';
 import '../container/style.css'
 class EducationComponent extends Component {
     constructor(props) {
@@ -25,7 +25,7 @@ class EducationComponent extends Component {
 
     componentDidMount()
     {
-        console.log(this.props.value,"printing each unit value")
+        
         if(this.props.value)
         {
             const res=this.props.value
@@ -72,7 +72,7 @@ class EducationComponent extends Component {
 
 
     updateEducation=()=>{
-        console.log("updating education for "+this.props.userID)
+      
         this.setState({buttonValue:'Updating....',warn:true})
         let res={
             stream:this.state.stream,
@@ -144,7 +144,7 @@ class EducationComponent extends Component {
                         inputIconWidth="50px"
                         validate={validateName}
                         setSubmit={this.setSubmitStatus}
-                        messages={["enter a valid value"]}
+                        messages={["special char not allowed"]}
                 />
                 
                 <div className='mt-2'>
@@ -164,9 +164,9 @@ class EducationComponent extends Component {
                         placeHolder="CGPA VAL/MAX VALUE"
                         inputIcons={inputIconsArray}
                         inputIconWidth="50px"
-                        validate={validateName}
+                        validate={cgpaValidator}
                         setSubmit={this.setSubmitStatus}
-                        messages={["enter a valid value"]}
+                        messages={["CGPA should be of the form val/max-val"]}
                 />
                 <button
                         onClick={this.updateEducation}

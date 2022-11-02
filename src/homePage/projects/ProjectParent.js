@@ -25,11 +25,13 @@ class ProjectsParent extends Component {
 
     async componentDidMount()
     {
+        if(!localStorage.getItem("loggedIn"))
+        window.location.reload(false)
         this.props.setRoute("projects")
         await this.fetchStateFromDatabase().then((res)=>{
             if(!res)
             return
-            console.log(res,"haan ye wala edu")
+            
             this.setState(({projectsArray:[...res]}))
         })
         return null

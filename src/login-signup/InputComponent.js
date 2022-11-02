@@ -19,7 +19,7 @@ class InputComponent extends Component {
 
         this.getData=(val)=>{
 
-            console.log('here')
+            
             this.validate().then((isInvalid)=>{
                 if(isInvalid)
                 return
@@ -29,7 +29,7 @@ class InputComponent extends Component {
                         username: val
                       })
                       .then((res)=>{
-                        console.log(res)
+                        
                             if(res.data==="ok")
                             this.updateWarn(false)
                             else

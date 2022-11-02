@@ -1,6 +1,8 @@
+import axios from 'axios';
 import React, { Component } from 'react';
+
 import ParentContainer from './homePage/container/ParentContainer';
-import LSFinalView from './login-signup/LSFinalView';
+import LSandView from './login-signup/LSandView';
 import NavBar from './navBar/nav_bar';
 class App extends Component {
     constructor(props) {
@@ -10,16 +12,40 @@ class App extends Component {
 
     }
 
-    setUserName=(sessID,val)=>{
-        console.log("setting")
+    setUserName=(res,val)=>{
+        
         return new Promise((s,r)=>{this.username=val
         localStorage.setItem("loggedIn",true)
-        localStorage.setItem("sessId",sessID)
+        localStorage.setItem("sessId",res[0])
         localStorage.setItem("uname",val)
+        localStorage.setItem("uid",res[1])
         this.setState({isLoggedIn:true},()=>{s()})
     })
     }
 
+    fetchSessId=(val)=>{
+        return new Promise((s,r)=>{
+            axios.post('http://localhost:8080/checksession/'+val).then((res)=>{
+                s(res.data)
+            })
+        })
+    }
+
+    async componentDidMount()
+    {
+        if(localStorage.getItem("loggedIn"))
+        {
+            await this.fetchSessId(localStorage.getItem("uname")).then((res)=>{
+                let val=localStorage.getItem("sessId")
+                
+                if(val!==res){
+                    
+                    localStorage.clear()
+                    window.location.reload(false)
+                }
+            })
+        }
+    }
 
 
     render()
@@ -28,11 +54,16 @@ class App extends Component {
 
             <>
                 <NavBar showLogOut={localStorage.getItem("loggedIn")==="true"}/>
-                { 
-                    localStorage.getItem("loggedIn")==="true"?
-                    <ParentContainer username={localStorage.getItem("uname")}/>:
-                    <LSFinalView setUserName={this.setUserName}/>
-                }
+               
+                    
+                    {
+                        localStorage.getItem("loggedIn")?
+                        <ParentContainer username={localStorage.getItem("uname")} checkSession={this.fetchSessId} />:
+                        ''
+                    }
+                    
+                    <LSandView setUserName={this.setUserName}/>
+                
             </>
         )
     }

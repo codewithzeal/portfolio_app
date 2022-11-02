@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import EnhancedInput from '../../utils/InputComponent';
-import { validateName } from './validators';
+import { addressValidator, validateName, validatePincode } from './validators';
 import axios from 'axios';
 class AddressComponent extends Component {
     constructor(props) {
@@ -101,7 +101,7 @@ class AddressComponent extends Component {
                         placeHolder="Address line 1"
                         inputIcons={inputIconsArray}
                         inputIconWidth="50px"
-                        validate={validateName}
+                        validate={addressValidator}
                         setSubmit={this.setSubmitStatus}
                         messages={["enter a valid value"]}
                     />
@@ -151,7 +151,7 @@ class AddressComponent extends Component {
                         inputIconWidth="50px"
                         setSubmit={this.setSubmitStatus}
                         messages={["enter a valid value"]}
-                        validate={validateName}
+                        validate={validatePincode}
                     />
                     
                 </div>

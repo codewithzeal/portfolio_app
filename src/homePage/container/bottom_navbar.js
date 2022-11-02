@@ -76,22 +76,19 @@ class BottomNavbar extends Component {
                                     <Link className="nav-link" to='education'style={routeNumber===2?activeState:unActiveState}>Education</Link>
                                 </li>
                                 <li className={routeNumber===3?"nav-item mybgclass":"nav-item bg-light"} style={this.getStyle(routeNumber,3)}>
-                                    <Link className="nav-link" to="we" style={routeNumber===3?activeState:unActiveState}>Experience</Link>
+                                    <Link className="nav-link" to="we" style={routeNumber===3?activeState:unActiveState}>Work Experience</Link>
                                 </li>
                                 <li className={routeNumber===4?"nav-item mybgclass":"nav-item bg-light"} style={this.getStyle(routeNumber,4)}>
                                     <Link className="nav-link" to="projects" style={routeNumber===4?activeState:unActiveState}>Projects</Link>
-                                </li>
-                                <li className={routeNumber===5?"nav-item mybgclass":"nav-item bg-light"} style={this.getStyle(routeNumber,5)}>
-                                    <Link className="nav-link" to="view" style={routeNumber===5?activeState:unActiveState}>View</Link>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </nav>
                 
-            <div className=' mybgclass' style={{top:'62px',position:'relative',width:'100%',height:'100vh',overflowX:'auto'}} >
+            <div className=' mybgclass' style={{top:'0px',position:'relative',width:'100%',height:'100vh',overflowX:'auto'}} >
                 <div className='container-fluid ml-1 mr-1'>
-                    <div className='row' style={{marginBottom:'20vh'}} >
+                    <div className='row' style={{marginBottom:'20vh',marginTop:'50px'}} >
                         <div className='col-sm-3'  >
 
                         </div>

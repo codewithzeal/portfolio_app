@@ -3,11 +3,11 @@ import { BrowserRouter, Routes } from 'react-router-dom';
 import BottomNavbar from './bottom_navbar';
 import { Route } from 'react-router-dom';
 import BasicComponent from '../basic_detail/BasicComponent';
-import ViewComponent from '../viewComponent/ViewComponent';
+
 import EducationParent from '../education/EducationParent';
 import WeParent from '../work_experience/WeParent';
 import ProjectsParent from '../projects/ProjectParent';
-import LSFinalView from '../../login-signup/LSFinalView';
+
 class ParentContainer extends Component {
     constructor(props) {
         super(props);
@@ -44,7 +44,7 @@ class ParentContainer extends Component {
             this.historyStack.skills=val
             else if(type==="address")
             this.historyStack.address=val
-            console.log(val,'bahar')
+            
         }
 
         this.getHistory=()=>{
@@ -57,6 +57,18 @@ class ParentContainer extends Component {
     }
 
    
+    async componentDidUpdate()
+    {
+        await this.props.checkSession(localStorage.getItem("uname")).then((res)=>{
+            let val=localStorage.getItem("sessId")
+            if(val!==res){
+               
+                localStorage.clear()
+                window.location.href="http://localhost:3000"
+            }
+        })
+    }
+
 
     updateRoute=(val)=>{
         this.setState({route:val})
@@ -72,12 +84,11 @@ class ParentContainer extends Component {
                 <BrowserRouter>
                     <Routes>
                             
-                                <Route path="" element={<BottomNavbar routeValue={this.state.route}/>}>
+                                <Route path="home" element={<BottomNavbar routeValue={this.state.route}/>}>
                                     <Route index element={<BasicComponent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory} userID={this.props.username}/>}/>
                                     <Route path='education' element={<EducationParent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory} userID={this.props.username}/>}/>
                                     <Route path='we' element={<WeParent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory} userID={this.props.username}/>}/>
                                     <Route path='projects' element={<ProjectsParent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory} userID={this.props.username}/>}/>
-                                    <Route path='view' element={<ViewComponent setRoute={this.updateRoute} getHistory={this.getHistory} saveHistory={this.saveHistory} userID={this.props.username}/>}/>
                                 </Route>
                     </Routes>
                 </BrowserRouter>

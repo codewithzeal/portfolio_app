@@ -25,11 +25,13 @@ class WeParent extends Component {
 
     async componentDidMount()
     {
+        if(!localStorage.getItem("loggedIn"))
+        window.location.reload(false)
         this.props.setRoute("we")
         await this.fetchStateFromDatabase().then((res)=>{
             if(!res)
             return
-            console.log(res,"haan ye wala edu")
+            
             this.setState(({weArray:[...res]}))
         })
         return null

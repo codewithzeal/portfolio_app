@@ -80,7 +80,7 @@ class LSParent extends Component {
         }).then((res)=>{
             if(res.data!=="nok")
             {
-               this.props.setUserName(res,this.state.username).then(()=>{})
+               this.props.setUserName(res.data,this.state.username).then(()=>{window.location.href="http://localhost:3000/home"})
                 
             }
             else

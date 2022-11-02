@@ -25,7 +25,7 @@ class ProjectComponent extends Component {
 
     componentDidMount()
     {
-        console.log(this.props.value,"printing each unit value")
+        
         if(this.props.value)
         {
             const res=this.props.value

@@ -1,6 +1,9 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import BasicView from './BasicView';
+import EducationComponent from './EducationComponent';
+import ProjectComponent from './ProjectComponent';
+import WEComponent from './WEcomponent';
 class ViewComponent extends Component {
     constructor(props) {
         super(props);
@@ -17,8 +20,8 @@ class ViewComponent extends Component {
 
 componentDidMount()
 {
-    this.props.setRoute("view")
-    axios.post('http://localhost:8080/fetch/'+this.props.userID).then((res)=>{
+    
+    axios.post('http://localhost:8080/fetchbyid/'+this.props.id).then((res)=>{
 
         let response=res.data[0]
         this.setState({
@@ -28,8 +31,8 @@ componentDidMount()
             address:response.address.adrline1?response.address:'',
             skills:response.skills.length?response.skills:'',
             projects:response.projects.length?response.projects:'',
-            education:response.education?response.education:'',
-            experience:response.experience?response.workExperiences:''
+            education:response.education.length?response.education:'',
+            experience:response.workExperiences.length?response.workExperiences:''
         })
     })
 }
@@ -38,16 +41,36 @@ componentDidMount()
     {
         return(
             <>
-                {
-                    
-                    !this.state.complete?
-                    <h6 style={{color:'white'}}>*Please complete address and basic details to start viewing
-                        or wait for changes to update(do not refresh or leave this tab)
-                    </h6>:
-                    <>
-                        <BasicView value={[this.state.basicDetails,this.state.address]}/>
-                    </>
-                }
+              
+                    <div className='container-fluid bg-light p-3' style={{position:'relative',color:'black',height:'100vh'}}>
+                        <BasicView value={[this.state.basicDetails,this.state.address,this.state.skills]}/>
+                        
+                        {
+                            this.state.education?
+                            <>
+                                <EducationComponent value={this.state.education}/>
+                            </>:
+                            ''
+                        }
+                        {
+                            this.state.experience?
+                            <>
+                                <WEComponent value={this.state.experience}/>
+                            </>:
+                            ''
+                        }
+                        {
+                            this.state.projects?
+                            <>
+                                <ProjectComponent value={this.state.projects}/>
+                            </>:
+                            ''
+                        }
+                        <div style={{height:'400px'}} >
+
+                        </div>
+                    </div>
+                
             </>
         )
     }

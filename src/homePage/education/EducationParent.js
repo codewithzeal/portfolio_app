@@ -9,7 +9,7 @@ class EducationParent extends Component {
             emptyInput:1
         }
         this.fetchStateFromDatabase=()=>{
-            console.log("parent component with prop value"+this.props.userID)
+            
             return new Promise((s,r)=>{
                 axios.post('http://localhost:8080/fetch/'+this.props.userID).then((res)=>{res?s(res.data[0].education):s(null)}).catch((res)=>{s(null)})
             })
@@ -19,11 +19,14 @@ class EducationParent extends Component {
 
     async componentDidMount()
     {
+        if(!localStorage.getItem("loggedIn"))
+        window.location.reload(false)
         this.props.setRoute("education")
         await this.fetchStateFromDatabase().then((res)=>{
             if(!res)
             return
-            console.log(res,"haan ye wala edu")
+            
+
             this.setState(({eduArray:[...res]}))
         })
         return null
