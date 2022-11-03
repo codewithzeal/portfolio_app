@@ -30,6 +30,13 @@ class NavBar extends React.Component {
         alert("copied to clipboard")
     }
 
+    goToHome=()=>{
+        if(this.props.showLogOut)
+        window.location.href="https://myself-portfolio-app.herokuapp.com/home"
+        else
+        return
+    }
+
     render() {
 
 
@@ -45,7 +52,7 @@ class NavBar extends React.Component {
             </div>
             <nav className="navbar topNav navbar-expand fixed-top p-1">
                 
-                    <div className='navbar-brand'>
+                    <div className='navbar-brand' onClick={this.goToHome} style={{cursor:'pointer'}} >
                         <SVG />
                     </div>
                     
