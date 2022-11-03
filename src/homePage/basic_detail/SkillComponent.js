@@ -41,7 +41,7 @@ class SkillComponent extends Component {
 
     updateSkills=()=>{
         this.setState({buttonValue:'Updating....',warn:true})
-        axios.post('http://localhost:8080/update',{
+        axios.post('https://pbackend2.herokuapp.com/update',{
             type:'skills',
             userToUpdate:{
                 username:this.props.userID,
@@ -52,7 +52,7 @@ class SkillComponent extends Component {
         }).then((res)=>{
            
             this.setState({buttonValue:'Updated',warn:true,skillsToUpdate:[]},()=>{
-                axios.post('http://localhost:8080/fetch/'+this.props.userID).then((res)=>{
+                axios.post('https://pbackend2.herokuapp.com/fetch/'+this.props.userID).then((res)=>{
                     
                     this.setState((prevState)=>({skills:[...res.data[0].skills]}))
                 })
@@ -65,7 +65,7 @@ class SkillComponent extends Component {
         if(this.props.getHistory().skills!=='')
         this.setState((this.props.getHistory().skills))
         else
-        axios.post('http://localhost:8080/fetch/'+this.props.userID).then((res)=>{
+        axios.post('https://pbackend2.herokuapp.com/fetch/'+this.props.userID).then((res)=>{
             
             this.setState((prevState)=>({skills:[...prevState.skills,...res.data[0].skills]}))
         })
@@ -79,7 +79,7 @@ class SkillComponent extends Component {
 
     delFromDatabase=(index,id)=>{
         
-        axios.post('http://localhost:8080/update',{
+        axios.post('https://pbackend2.herokuapp.com/update',{
             type:'dellskill',
             userToUpdate:{
                 username:this.props.userID,

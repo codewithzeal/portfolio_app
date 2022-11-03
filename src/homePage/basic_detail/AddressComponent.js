@@ -22,7 +22,7 @@ class AddressComponent extends Component {
         if(this.props.getHistory().address!=='')
         this.setState((this.props.getHistory().address))
         else
-        axios.post('http://localhost:8080/fetch/'+this.props.userID).then((res)=>{
+        axios.post('https://pbackend2.herokuapp.com/fetch/'+this.props.userID).then((res)=>{
             if(!res.data[0])
             return
             res=res.data[0].address
@@ -69,7 +69,7 @@ class AddressComponent extends Component {
 
     updateAddress=()=>{
         this.setState({buttonValue:'Updating....',warn:true})
-        axios.post('http://localhost:8080/update',{
+        axios.post('https://pbackend2.herokuapp.com/update',{
             type:'address',
             userToUpdate:{
                 username:this.props.userID,

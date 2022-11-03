@@ -11,7 +11,7 @@ class EducationParent extends Component {
         this.fetchStateFromDatabase=()=>{
             
             return new Promise((s,r)=>{
-                axios.post('http://localhost:8080/fetch/'+this.props.userID).then((res)=>{res?s(res.data[0].education):s(null)}).catch((res)=>{s(null)})
+                axios.post('https://pbackend2.herokuapp.com/fetch/'+this.props.userID).then((res)=>{res?s(res.data[0].education):s(null)}).catch((res)=>{s(null)})
             })
         }
     }

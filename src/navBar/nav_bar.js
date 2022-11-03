@@ -17,17 +17,24 @@ class NavBar extends React.Component {
     
     logOut=()=>{
         localStorage.clear();
-        window.location.href="http://localhost:3000"
+        window.location.href="https://myself-portfolio-app.herokuapp.com"
     }
 
     viewProfile=()=>{
         let id=localStorage.getItem("uid")
-        window.location.href="view/"+id
+        window.location.href="https://myself-portfolio-app.herokuapp.com/view/"+id
     }
 
     copyLink=()=>{
-        navigator.clipboard.writeText("http://localhost:3000/view/"+localStorage.getItem("uid"))
+        navigator.clipboard.writeText("https://myself-portfolio-app.herokuapp.com/view/"+localStorage.getItem("uid"))
         alert("copied to clipboard")
+    }
+
+    goToHome=()=>{
+        if(this.props.showLogOut)
+        window.location.href="https://myself-portfolio-app.herokuapp.com/home"
+        else
+        return
     }
 
     render() {
@@ -45,7 +52,7 @@ class NavBar extends React.Component {
             </div>
             <nav className="navbar topNav navbar-expand fixed-top p-1">
                 
-                    <div className='navbar-brand'>
+                    <div className='navbar-brand' onClick={this.goToHome} style={{cursor:'pointer'}} >
                         <SVG />
                     </div>
                     

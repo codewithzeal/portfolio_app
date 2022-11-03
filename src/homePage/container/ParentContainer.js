@@ -64,7 +64,7 @@ class ParentContainer extends Component {
             if(val!==res){
                
                 localStorage.clear()
-                window.location.href="http://localhost:3000"
+                window.location.href="https://myself-portfolio-app.herokuapp.com"
             }
         })
     }
