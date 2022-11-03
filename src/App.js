@@ -25,7 +25,7 @@ class App extends Component {
 
     fetchSessId=(val)=>{
         return new Promise((s,r)=>{
-            axios.post('http://localhost:8080/checksession/'+val).then((res)=>{
+            axios.post('https://pbackend2.herokuapp.com/checksession/'+val).then((res)=>{
                 s(res.data)
             })
         })

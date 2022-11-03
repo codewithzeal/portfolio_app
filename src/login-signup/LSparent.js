@@ -58,7 +58,7 @@ class LSParent extends Component {
 
     signup=(e)=>{
         e.preventDefault()
-        axios.post('http://localhost:8080/signup',{
+        axios.post('https://pbackend2.herokuapp.com/signup',{
             username:this.state.username,
             password:this.state.password
         }).then((res)=>{
@@ -74,13 +74,13 @@ class LSParent extends Component {
 
     login=(e)=>{
         e.preventDefault()
-        axios.post('http://localhost:8080/login',{
+        axios.post('https://pbackend2.herokuapp.com/login',{
             username:this.state.username,
             password:this.state.password
         }).then((res)=>{
             if(res.data!=="nok")
             {
-               this.props.setUserName(res.data,this.state.username).then(()=>{window.location.href="http://localhost:3000/home"})
+               this.props.setUserName(res.data,this.state.username).then(()=>{window.location.href="https://myself-portfolio-app.herokuapp.com/home"})
                 
             }
             else

@@ -28,7 +28,7 @@ class BasicComponent extends Component {
 
         this.fetchStateFromDatabase=()=>{
             return new Promise((s,r)=>{
-                axios.post('http://localhost:8080/fetch/'+this.props.userID).then((res)=>{res?s(res.data[0].basicDetails):s(null)}).catch((res)=>{s(null)})
+                axios.post('https://pbackend2.herokuapp.com/fetch/'+this.props.userID).then((res)=>{res?s(res.data[0].basicDetails):s(null)}).catch((res)=>{s(null)})
             })
         }
     }
@@ -129,7 +129,7 @@ class BasicComponent extends Component {
 
     updateBasicDetail=()=>{
         this.setState({buttonValue:"updating...",shouldSubmit:false})
-        axios.post('http://localhost:8080/update',{
+        axios.post('https://pbackend2.herokuapp.com/update',{
             type:'basic',
             userToUpdate:
             {

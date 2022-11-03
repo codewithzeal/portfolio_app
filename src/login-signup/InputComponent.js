@@ -25,7 +25,7 @@ class InputComponent extends Component {
                 return
                 else
                 {
-                    axios.post('http://localhost:8080/verify', {
+                    axios.post('https://pbackend2.herokuapp.com/verify', {
                         username: val
                       })
                       .then((res)=>{

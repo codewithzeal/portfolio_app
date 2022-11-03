@@ -84,7 +84,7 @@ class ProjectComponent extends Component {
         }
         if(this.props.value)
         res["idValue"]=this.props.value.idValue
-        axios.post('http://localhost:8080/update',{
+        axios.post('https://pbackend2.herokuapp.com/update',{
             type:'projects',
             userToUpdate:{
                 username:this.props.userID,

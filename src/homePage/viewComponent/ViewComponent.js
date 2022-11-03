@@ -21,7 +21,7 @@ class ViewComponent extends Component {
 componentDidMount()
 {
     
-    axios.post('http://localhost:8080/fetchbyid/'+this.props.id).then((res)=>{
+    axios.post('https://pbackend2.herokuapp.com/fetchbyid/'+this.props.id).then((res)=>{
 
         let response=res.data[0]
         this.setState({
